@@ -19,6 +19,10 @@
               <mat-label>Marca del Producto</mat-label>
               <input formControlName="brand" matInput placeholder="Ingrese la Marca del Producto">
             </mat-form-field>
+            <mat-form-field appearance="outline">
+              <mat-label>Número de serie</mat-label>
+              <input formControlName="serie" matInput placeholder="Ingrese el número de serie del producto">
+            </mat-form-field>
             <button mat-raised-button color="primary" (ngSubmit)="this.send()">AGREGAR</button>
           </form>
         </mat-tab>
