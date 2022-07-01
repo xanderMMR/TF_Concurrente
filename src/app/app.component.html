@@ -1,0 +1,79 @@
+<body>
+
+  <div class="mainContainer">
+    <h1 class="mainTitle">BLOCKCHAIN</h1>
+    <mat-card class="mainCard mainCardColor">
+      <mat-tab-group mat-stretch-tabs>
+
+        <mat-tab label="Agregar Producto">
+          <form [formGroup]="this.read" class="generalForm formColor" (ngSubmit)="this.send()">
+            <mat-form-field appearance="outline">
+              <mat-label>Nombre del Producto</mat-label>
+              <input formControlName="name" matInput placeholder="Ingrese el Nombre del Producto">
+            </mat-form-field>
+            <mat-form-field appearance="outline">
+              <mat-label>Categoria del Producto</mat-label>
+              <input formControlName="category" matInput placeholder="Ingrese la Categoria del Producto">
+            </mat-form-field>
+            <mat-form-field appearance="outline">
+              <mat-label>Marca del Producto</mat-label>
+              <input formControlName="brand" matInput placeholder="Ingrese la Marca del Producto">
+            </mat-form-field>
+            <button mat-raised-button color="primary" (ngSubmit)="this.send()">AGREGAR</button>
+          </form>
+        </mat-tab>
+
+        <mat-tab label="Obtener Productos">
+          <form class="generalForm" [formGroup]="this.buscarId"(ngSubmit)="this.send_id()">
+            <mat-form-field appearance="outline">
+              <mat-label>Ingrese el ID</mat-label>
+              <input formControlName="id" matInput placeholder="Ingrese el ID">
+            </mat-form-field>
+            <button mat-raised-button color="primary">Obtener por ID</button>
+          </form>
+          <hr class="p2">
+          <div class="d-flex align-items-center justify-content-between small">
+            <span class='spacer align-items-center justify-content-between'></span>
+              <button mat-raised-button color="primary" (click)="getMessage(false)">Obtener Toda la Red</button>
+            <span class='spacer'></span>
+          </div>
+        </mat-tab>
+
+      </mat-tab-group>
+    </mat-card>
+      <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+        <ng-container matColumnDef="brand">
+          <th mat-header-cell *matHeaderCellDef> Brand </th>
+          <td mat-cell *matCellDef="let element"> {{element.brand}} </td>
+        </ng-container>
+      
+        <ng-container matColumnDef="name">
+          <th mat-header-cell *matHeaderCellDef> Name </th>
+          <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+        </ng-container>
+      
+        <ng-container matColumnDef="category">
+          <th mat-header-cell *matHeaderCellDef> Category </th>
+          <td mat-cell *matCellDef="let element"> {{element.category}} </td>
+        </ng-container>
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table> 
+    
+    
+  </div>
+
+  <div id="layoutAuthentication_footer">
+    <footer class="py-4 bg-light mt-auto">
+        <div class="container-fluid px-4">
+            <div class="d-flex align-items-center justify-content-between small">
+                <span class='spacer align-items-center justify-content-between'></span>
+                  <div class="text-center py-3">Copyright &copy; Universidad Peruana de Ciencias Aplicadas 2022</div>
+                <span class='spacer'></span>
+            </div>
+        </div>
+    </footer>
+  </div>
+
+
+</body>
