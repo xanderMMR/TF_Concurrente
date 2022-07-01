@@ -20,6 +20,7 @@ import { NzMessageModule } from 'ng-zorro-antd';
 import {MatToolbarModule} from '@angular/material/toolbar';
 import { AngularEmojisModule } from 'angular-emojis';
 import {MatTableModule} from '@angular/material/table'
+import {MatGridListModule} from '@angular/material/grid-list';
 registerLocaleData(en);
 
 @NgModule({
@@ -27,6 +28,7 @@ registerLocaleData(en);
     AppComponent
   ],
   imports: [
+    MatGridListModule,
     MatTableModule,
     BrowserModule,
     AppRoutingModule,
