@@ -90,11 +90,39 @@ export class AppComponent implements OnInit {
    
       
     }, (error)=>{
-      alert('El ID no existe')
+      alert('El producto no existe')
+    }
+    );
+  }
+  productToUpdate(){
+    this.http.get(`http://localhost:8080/${this.buscarId.controls['id'].value}`).subscribe(data => {
+
+        this.name = data['name']
+        this.brand = data['brand']
+        this.category = data['category']
+
+      
+    }, (error)=>{
+      alert('El producto no existe')
     }
     );
   }
   postProduct(){
+    // console.log(this.read.controls['name'].value)
+    const data ={
+      id: "4",
+      name: this.read.controls['name'].value,
+      category: this.read.controls['category'].value,
+      brand: this.read.controls['brand'].value
+    }
+    console.log(data)
+    this.http.post("http://localhost:8080/",data).subscribe(result=>{
+      console.log(result)
+    })
+      
+  }
+
+  UpdateProduct(){
     // console.log(this.read.controls['name'].value)
     const data ={
       id: "4",

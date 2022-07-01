@@ -67,7 +67,38 @@
           <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
           </table> -->
         </mat-tab>
-        
+
+        <mat-tab label="Actualizar Productos">
+          <form class="generalForm" [formGroup]="this.buscarId"(ngSubmit)="this.productToUpdate()">
+            <mat-form-field appearance="outline">
+              <mat-label>Ingrese el ID</mat-label>
+              <input formControlName="id" matInput placeholder="Ingrese el ID">
+            </mat-form-field>
+            <button mat-raised-button color="primary"> Buscar producto</button>
+          </form>
+          <hr class="p2">
+          <form [formGroup]="this.read" class="generalForm formColor" (ngSubmit)="this.postProduct()" style="display:none">
+            <mat-form-field appearance="outline">
+              <mat-label>Nombre del Producto</mat-label>
+              <input formControlName="name" matInput placeholder="Ingrese el Nombre del Producto">
+            </mat-form-field>
+            <mat-form-field appearance="outline">
+              <mat-label>Categoria del Producto</mat-label>
+              <input formControlName="category" matInput placeholder="Ingrese la Categoria del Producto">
+            </mat-form-field>
+            <mat-form-field appearance="outline">
+              <mat-label>Marca del Producto</mat-label>
+              <input formControlName="brand" matInput placeholder="Ingrese la Marca del Producto">
+            </mat-form-field>
+            <button mat-raised-button color="primary" (ngSubmit)="this.send()">AGREGAR</button>
+          </form>
+          <!-- <div class="d-flex align-items-center justify-content-between small">
+            <span class='spacer align-items-center justify-content-between'></span>
+              <button mat-raised-button color="primary" (click)="getMessage(false)">Obtener Toda la Red</button>
+            <span class='spacer'></span>
+          </div> -->
+
+        </mat-tab>
       </mat-tab-group>
      
     </mat-card>
