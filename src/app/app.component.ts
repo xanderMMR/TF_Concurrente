@@ -127,6 +127,7 @@ export class AppComponent implements OnInit {
       name: this.read.controls['name'].value,
       category: this.read.controls['category'].value,
       brand: this.read.controls['brand'].value,
+      serie: this.read.controls['serie'].value
     };
     console.log(data);
     this.http
