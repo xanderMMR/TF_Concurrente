@@ -9,19 +9,19 @@
           <form [formGroup]="this.read" class="generalForm formColor" (ngSubmit)="this.postProduct()">
             <mat-form-field appearance="outline">
               <mat-label>Nombre del Producto</mat-label>
-              <input formControlName="name" matInput placeholder="Ingrese el Nombre del Producto">
+              <input formControlName="name" matInput placeholder="Ingrese el Nombre del Producto" id="name_post" >
             </mat-form-field>
             <mat-form-field appearance="outline">
               <mat-label>Categoria del Producto</mat-label>
-              <input formControlName="category" matInput placeholder="Ingrese la Categoria del Producto">
+              <input formControlName="category" matInput placeholder="Ingrese la Categoria del Producto"  id="category_post">
             </mat-form-field>
             <mat-form-field appearance="outline">
               <mat-label>Marca del Producto</mat-label>
-              <input formControlName="brand" matInput placeholder="Ingrese la Marca del Producto">
+              <input formControlName="brand" matInput placeholder="Ingrese la Marca del Producto" id="brand_post">
             </mat-form-field>
             <mat-form-field appearance="outline">
               <mat-label>Número de serie</mat-label>
-              <input formControlName="serie" matInput placeholder="Ingrese el número de serie del producto">
+              <input formControlName="serie" matInput placeholder="Ingrese el número de serie del producto" id="serie_post">
             </mat-form-field>
             <button mat-raised-button color="primary" (ngSubmit)="this.send()">AGREGAR</button>
           </form>
@@ -41,13 +41,15 @@
               <button mat-raised-button color="primary" (click)="getMessage(false)">Obtener Toda la Red</button>
             <span class='spacer'></span>
           </div>
-          <mat-grid-list cols="3" rowHeight=30px>
+          <mat-grid-list cols="4" rowHeight=50px>
             <mat-grid-tile><b>Nombre</b></mat-grid-tile>
             <mat-grid-tile><b>Marca</b></mat-grid-tile>
             <mat-grid-tile><b>Categoría</b></mat-grid-tile>
+            <mat-grid-tile><b>Serie</b></mat-grid-tile>
             <mat-grid-tile>{{name}}</mat-grid-tile>
             <mat-grid-tile>{{brand}}</mat-grid-tile>
             <mat-grid-tile>{{category}}</mat-grid-tile>
+            <mat-grid-tile>{{serie}}</mat-grid-tile>
             
           </mat-grid-list>
      
@@ -76,25 +78,29 @@
           <form class="generalForm" [formGroup]="this.buscarId"(ngSubmit)="this.productToUpdate()">
             <mat-form-field appearance="outline">
               <mat-label>Ingrese el ID</mat-label>
-              <input formControlName="id" matInput placeholder="Ingrese el ID">
+              <input formControlName="id" matInput placeholder="Ingrese el ID" id="id">
             </mat-form-field>
             <button mat-raised-button color="primary"> Buscar producto</button>
           </form>
           <hr class="p2">
-          <form [formGroup]="this.read" class="generalForm formColor" (ngSubmit)="this.postProduct()" style="display:none">
+          <form [formGroup]="this.read" class="generalForm formColor" (ngSubmit)="this.UpdateProduct()" id="form_update" >
             <mat-form-field appearance="outline">
               <mat-label>Nombre del Producto</mat-label>
-              <input formControlName="name" matInput placeholder="Ingrese el Nombre del Producto">
+              <input formControlName="name" matInput placeholder="Ingrese el Nombre del Producto" id="name_product">
             </mat-form-field>
             <mat-form-field appearance="outline">
               <mat-label>Categoria del Producto</mat-label>
-              <input formControlName="category" matInput placeholder="Ingrese la Categoria del Producto">
+              <input formControlName="category" matInput placeholder="Ingrese la Categoria del Producto" id="category_product">
             </mat-form-field>
             <mat-form-field appearance="outline">
               <mat-label>Marca del Producto</mat-label>
-              <input formControlName="brand" matInput placeholder="Ingrese la Marca del Producto">
+              <input formControlName="brand" matInput placeholder="Ingrese la Marca del Producto" id="brand_product">
             </mat-form-field>
-            <button mat-raised-button color="primary" (ngSubmit)="this.send()">AGREGAR</button>
+            <mat-form-field appearance="outline">
+              <mat-label>Número de serie</mat-label>
+              <input formControlName="serie" matInput placeholder="Ingrese el número de serie del producto" id="serie_product">
+            </mat-form-field>
+            <button mat-raised-button color="primary" (ngSubmit)="this.send()">ACTUALIZAR</button>
           </form>
           <!-- <div class="d-flex align-items-center justify-content-between small">
             <span class='spacer align-items-center justify-content-between'></span>

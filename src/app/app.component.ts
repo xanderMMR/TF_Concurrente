@@ -50,7 +50,7 @@ export class AppComponent implements OnInit {
   i: boolean;
   // --------
   id_producto: number = 0;
-  displayedColumns: string[] = ['name', 'category', 'brand'];
+  displayedColumns: string[] = ['name', 'category', 'brand','serie'];
   dataSource: {};
   data_product: [];
 
@@ -58,9 +58,12 @@ export class AppComponent implements OnInit {
     private cryptService: CryptService,
     private _fb: FormBuilder,
     private http: HttpClient
-  ) {}
+  ) {
+    
+  }
 
   ngOnInit(): void {
+    
     this.encryptForm = this._fb.group({
       plainText: [null, [Validators.required]],
       publicKey: [null, [Validators.pattern]],
@@ -93,15 +96,15 @@ export class AppComponent implements OnInit {
   }
   getProductById(){
     this.http.get(`http://localhost:8080/${this.buscarId.controls['id'].value}`).subscribe(data => {
-        if (data['status']!=null){
+        // if (data['status']!=null){
         this.name = data['name']
         this.brand = data['brand']
         this.category = data['category']
         this.serie = data['serie']
-      }
-      else{
-        alert (data['status'])
-      }
+      
+      // else{
+      //   alert (data['status'])
+      // }
       
     }, (error)=>{
       alert ('El producto no existe')
@@ -109,11 +112,14 @@ export class AppComponent implements OnInit {
     );
   }
   productToUpdate(){
+   
     this.http.get(`http://localhost:8080/${this.buscarId.controls['id'].value}`).subscribe(data => {
-
-        this.name = data['name']
-        this.brand = data['brand']
-        this.category = data['category']
+        
+        document.getElementById("name_product")['value'] = data['name']
+        document.getElementById("brand_product")['value'] = data['brand']
+        document.getElementById("category_product")['value'] = data['category']
+        document.getElementById("serie_product")['value'] = data['serie']
+        
 
       
     }, (error)=>{
@@ -124,30 +130,40 @@ export class AppComponent implements OnInit {
   postProduct() {
     // console.log(this.read.controls['name'].value)
     const data = {
-      name: this.read.controls['name'].value,
+      name:     this.read.controls['name'].value,
       category: this.read.controls['category'].value,
-      brand: this.read.controls['brand'].value,
-      serie: this.read.controls['serie'].value
+      brand:    this.read.controls['brand'].value,
+      serie:    this.read.controls['serie'].value
     };
     console.log(data);
     this.http
-      .post('http://localhost:8080/api/products', data)
+      .post('http://localhost:8080/', data)
       .subscribe((result) => {
-        console.log(result);
+       document.getElementById("name_post")['value']=''
+       document.getElementById("brand_post")['value']=''
+       document.getElementById("category_post")['value']=''
+       document.getElementById("serie_post")['value']=''
+        alert ('Se agregó el producto')
       });
   }
 
   UpdateProduct(){
     // console.log(this.read.controls['name'].value)
     const data ={
-      id: "4",
-      name: this.read.controls['name'].value,
-      category: this.read.controls['category'].value,
-      brand: this.read.controls['brand'].value
+      id: document.getElementById("id")["value"],
+      name:     document.getElementById("name_product")['value'],
+      category: document.getElementById("brand_product")['value'],
+      brand:    document.getElementById("category_product")['value'],
+      serie:    document.getElementById("serie_product")['value']
     }
-    console.log(data)
-    this.http.post("http://localhost:8080/",data).subscribe(result=>{
-      console.log(result)
+
+    this.http.put(`http://localhost:8080/${data.id}`,data).subscribe(result=>{
+      document.getElementById("id")['value']=''
+      document.getElementById("name_product")['value']=''
+      document.getElementById("brand_product")['value']=''
+      document.getElementById("category_product")['value']=''
+      document.getElementById("serie_product")['value']=''
+      alert ('Producto actualizado')
     })
       
   }
