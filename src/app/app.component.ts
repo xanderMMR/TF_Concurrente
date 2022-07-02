@@ -50,7 +50,7 @@ export class AppComponent implements OnInit {
   i: boolean;
   // --------
   id_producto: number = 0;
-  displayedColumns: string[] = ['name', 'category', 'brand','serie'];
+  displayedColumns: string[] = ['name', 'category', 'brand', 'serie'];
   dataSource: {};
   data_product: [];
 
@@ -58,12 +58,9 @@ export class AppComponent implements OnInit {
     private cryptService: CryptService,
     private _fb: FormBuilder,
     private http: HttpClient
-  ) {
-    
-  }
+  ) {}
 
   ngOnInit(): void {
-    
     this.encryptForm = this._fb.group({
       plainText: [null, [Validators.required]],
       publicKey: [null, [Validators.pattern]],
@@ -81,8 +78,7 @@ export class AppComponent implements OnInit {
       name: [''],
       category: [''],
       brand: [''],
-      serie: ['']
-    
+      serie: [''],
     });
 
     this.buscarId = this._fb.group({
@@ -92,88 +88,97 @@ export class AppComponent implements OnInit {
   getProducts() {
     this.http.get('http://localhost:8080/api/products').subscribe((data) => {
       this.dataSource = data;
+      document.getElementById('table').style.display = 'block';
     });
   }
-  getProductById(){
-    this.http.get(`http://localhost:8080/${this.buscarId.controls['id'].value}`).subscribe(data => {
-        // if (data['status']!=null){
-        this.name = data['name']
-        this.brand = data['brand']
-        this.category = data['category']
-        this.serie = data['serie']
-      
-      // else{
-      //   alert (data['status'])
-      // }
-      
-    }, (error)=>{
-      alert ('El producto no existe')
-    } 
-    );
-  }
-  productToUpdate(){
-   
-    this.http.get(`http://localhost:8080/${this.buscarId.controls['id'].value}`).subscribe(data => {
-        
-        document.getElementById("name_product")['value'] = data['name']
-        document.getElementById("brand_product")['value'] = data['brand']
-        document.getElementById("category_product")['value'] = data['category']
-        document.getElementById("serie_product")['value'] = data['serie']
-        
+  getProductById() {
+    this.http
+      .get(
+        `http://localhost:8080/api/products/getById?id=${this.buscarId.controls['id'].value}`
+      )
+      .subscribe(
+        (data) => {
+          // if (data['status']!=null){
+          this.name = data['Name'];
+          this.brand = data['Brand'];
+          this.category = data['Category'];
+          this.serie = data['Serie'];
 
-      
-    }, (error)=>{
-      alert('El producto no existe')
-    }
-    );
+          // else{
+          //   alert (data['status'])
+          // }
+        },
+        (error) => {
+          alert('El producto no existe');
+        }
+      );
+  }
+  productToUpdate() {
+    this.http
+      .get(
+        `http://localhost:8080/api/products/getById?id=${this.buscarId.controls['id'].value}`
+      )
+      .subscribe(
+        (data) => {
+          document.getElementById('name_product')['value'] = data['Name'];
+          document.getElementById('brand_product')['value'] = data['Brand'];
+          document.getElementById('category_product')['value'] =
+            data['Category'];
+          document.getElementById('serie_product')['value'] = data['Serie'];
+        },
+        (error) => {
+          alert('El producto no existe');
+        }
+      );
   }
   postProduct() {
     // console.log(this.read.controls['name'].value)
     const data = {
-      name:     this.read.controls['name'].value,
-      category: this.read.controls['category'].value,
-      brand:    this.read.controls['brand'].value,
-      serie:    this.read.controls['serie'].value
+      Name: this.read.controls['name'].value,
+      Category: this.read.controls['category'].value,
+      Brand: this.read.controls['brand'].value,
+      Serie: this.read.controls['serie'].value,
     };
     console.log(data);
     this.http
-      .post('http://localhost:8080/', data)
+      .post('http://localhost:8080/api/products', data)
       .subscribe((result) => {
-       document.getElementById("name_post")['value']=''
-       document.getElementById("brand_post")['value']=''
-       document.getElementById("category_post")['value']=''
-       document.getElementById("serie_post")['value']=''
-        alert ('Se agregó el producto')
+        document.getElementById('name_post')['value'] = '';
+        document.getElementById('brand_post')['value'] = '';
+        document.getElementById('category_post')['value'] = '';
+        document.getElementById('serie_post')['value'] = '';
+        alert('Se agregó el producto');
       });
   }
 
-  UpdateProduct(){
+  UpdateProduct() {
     // console.log(this.read.controls['name'].value)
-    const data ={
-      id: document.getElementById("id")["value"],
-      name:     document.getElementById("name_product")['value'],
-      category: document.getElementById("brand_product")['value'],
-      brand:    document.getElementById("category_product")['value'],
-      serie:    document.getElementById("serie_product")['value']
-    }
 
-    this.http.put(`http://localhost:8080/${data.id}`,data).subscribe(result=>{
-      document.getElementById("id")['value']=''
-      document.getElementById("name_product")['value']=''
-      document.getElementById("brand_product")['value']=''
-      document.getElementById("category_product")['value']=''
-      document.getElementById("serie_product")['value']=''
-      alert ('Producto actualizado')
-    })
-      
+    const id = document.getElementById('id')['value'];
+    const data = {
+      Name: document.getElementById('name_product')['value'],
+      Category: document.getElementById('category_product')['value'],
+      Brand: document.getElementById('brand_product')['value'],
+      Serie: document.getElementById('serie_product')['value'],
+    };
+
+    this.http
+      .put(`http://localhost:8080/api/products?id=${id}`, data)
+      .subscribe((result) => {
+        document.getElementById('id')['value'] = '';
+        document.getElementById('name_product')['value'] = '';
+        document.getElementById('brand_product')['value'] = '';
+        document.getElementById('category_product')['value'] = '';
+        document.getElementById('serie_product')['value'] = '';
+        alert('Producto actualizado');
+      });
   }
 
-  getMessage(b: boolean){
-    if (b){
-      alert('👦🏻')
-    }
-    else{
-      alert('👦🏿')
+  getMessage(b: boolean) {
+    if (b) {
+      alert('👦🏻');
+    } else {
+      alert('👦🏿');
     }
   }
 
